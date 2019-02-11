@@ -85,9 +85,10 @@ jacoco {
 
 jacocoTestReport {
   reports {
-    xml.enabled = false
+    xml.enabled = true
     csv.enabled = false
-    html.destination file("${buildDir}/reports/jacoco")
+    html.destination file("${buildDir}/reports/jacoco/coverage.html")
+    xml.destination file("${buildDir}/reports/jacoco/coverage.xml")
   }
   
   afterEvaluate {
@@ -105,20 +106,20 @@ test {
   useJUnitPlatform()
 }
 
-task integrationTest(type: Test, dependsOn: test) {
-    beforeSuite { descriptor ->
-      if (descriptor.className != null) {
-        logger.lifecycle("Running: " + descriptor.className)
-      }
-    }
-
-  include '**/it/**/*'
-
-  reports {
-    html.destination = file("$buildDir/reports/integrationTests")
-  }
-}
-check.dependsOn integrationTest
+//task integrationTest(type: Test, dependsOn: test) {
+//    beforeSuite { descriptor ->
+//      if (descriptor.className != null) {
+//        logger.lifecycle("Running: " + descriptor.className)
+//      }
+//    }
+//
+//  include '**/it/**/*'
+//
+//  reports {
+//    html.destination = file("$buildDir/reports/integrationTests")
+//  }
+//}
+//check.dependsOn integrationTest
 
 
 sourceCompatibility = 1.8
