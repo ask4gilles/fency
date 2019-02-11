@@ -6,6 +6,7 @@ jdk:
 sudo: required
 services:
   - docker
+  - rabbitmq
 
 script:
   - ./gradlew build
