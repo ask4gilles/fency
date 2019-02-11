@@ -84,6 +84,7 @@ jacoco {
 }
 
 jacocoTestReport {
+  executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
   reports {
     xml.enabled = true
     csv.enabled = false
