@@ -7,6 +7,7 @@ sudo: required
 services:
   - docker
   - rabbitmq
+  - redis
 
 script:
   - ./gradlew build
