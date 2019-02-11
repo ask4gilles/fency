@@ -1,3 +1,5 @@
+[![Build Status][ci-img]][ci]
+
 # Idempotency barrier
 ## Theoretical concept
 Even when a sender application sends a message only once,
@@ -30,3 +32,6 @@ The unique message key is composed by the messageId and the consumerQueueName.
 If the message does not exist, the target method is invoked and the message is stored in Redis.
 
 If the message already exists, an error message is logged and the target method is not invoked
+
+[ci-img]: https://api.travis-ci.com/ask4gilles/idempotency-barrier.svg?branch=master
+[ci]: https://travis-ci.com/ask4gilles/idempotency-barrier
