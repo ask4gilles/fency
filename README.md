@@ -1,4 +1,5 @@
 [![Build Status][ci-img]][ci]
+[![codecov](https://codecov.io/gh/ask4gilles/idempotency-barrier/branch/master/graph/badge.svg)](https://codecov.io/gh/ask4gilles/idempotency-barrier)
 
 # Idempotency barrier
 ## Theoretical concept
