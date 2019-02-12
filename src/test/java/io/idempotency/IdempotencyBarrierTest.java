@@ -45,7 +45,7 @@ public class IdempotencyBarrierTest {
   }
 
   @Test
-  public void testExecute_whenNoMessageFound() throws Throwable {
+  public void testExecuteWhenNoMessageFound() throws Throwable {
     // given
     ProceedingJoinPoint mProceedingJoinPoint = Mockito.mock(ProceedingJoinPoint.class);
     MessageContext messageContext = IdempotencyTestUtils.createIdempotentContext();
@@ -64,7 +64,7 @@ public class IdempotencyBarrierTest {
   }
 
   @Test
-  public void testExecute_whenMessageFound() throws Throwable {
+  public void testExecuteWhenMessageFound() throws Throwable {
     // given
     ProceedingJoinPoint mProceedingJoinPoint = Mockito.mock(ProceedingJoinPoint.class);
     MessageContext messageContext = IdempotencyTestUtils.createIdempotentContext();

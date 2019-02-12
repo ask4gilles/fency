@@ -66,14 +66,13 @@ public class MessagingIdempotencyConfig {
   }
 
   @Bean
-  public IdempotencyBarrier idempotentMessageAspect(ContextService contextService,
-                                                    MessageService messageService) {
+  public IdempotencyBarrier idempotentMessageAspect(ContextService contextService, MessageService messageService) {
     return new IdempotencyBarrier(contextService, messageService);
   }
 
   @Bean
-  public MessageService idempotentMessageService(RedisTemplate<String, Message> redisTemplate) {
-    return new MessageServiceImpl(redisTemplate);
+  public MessageService redisMessageService(RedisTemplate<String, Message> redisTemplate) {
+    return new RedisMessageService(redisTemplate);
   }
 
   @Bean

@@ -37,12 +37,12 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-public class MessageServiceImplTest {
+public class RedisMessageServiceTest {
 
   @Mock
   private RedisTemplate<String, Message> mRedisTemplate;
   @InjectMocks
-  private MessageServiceImpl idempotentMessageService;
+  private RedisMessageService idempotentMessageService;
 
   @Before
   public void setUp() {

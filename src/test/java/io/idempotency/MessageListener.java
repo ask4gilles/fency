@@ -11,7 +11,9 @@ public class MessageListener {
   public void handleMessage(Object message) {
     LOGGER.info("Received : {}", message);
     if ("exception".equals(message)) {
+      // CHECKSTYLE:OFF for test
       throw new RuntimeException();
+      // CHECKSTYLE:ON
     }
   }
 }

@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 
 @Transactional
 @RequiredArgsConstructor
-class MessageServiceImpl implements MessageService {
+class RedisMessageService implements MessageService {
 
   private final RedisTemplate<String, Message> redisTemplate;
 

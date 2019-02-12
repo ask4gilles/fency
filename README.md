@@ -25,8 +25,9 @@ the message recipient has to keep a list of already received message identifiers
 In order to store the processed message metadata, we have to be in a transactional context.
 If something goes wrong, the transaction has to be roll backed.
 
-1. The **IdempotentMessageInterceptor** creates an **IdempotentContext** and stores it in a ThreadLocal
-2. The **IdempotentMessageAspect** is an aspect around the **@IdempotentConsumer** annotation. 
+1.  The **IdempotentMessageInterceptor** creates an **IdempotentContext** and stores it in a ThreadLocal
+
+2.  The **IdempotentMessageAspect** is an aspect around the **@IdempotentConsumer** annotation. 
 It retrieves the IdempotentContext and checks if the message already exists. 
 The unique message key is composed by the messageId and the consumerQueueName.
 

@@ -94,25 +94,25 @@ class IdempotencyMessagingItTest {
   private RedisOperations<String, Message> operations;
 
   @BeforeAll
-  static void setUp() {
+  public static void setUp() {
     REDIS.start();
     RABBIT.start();
   }
 
   @AfterAll
-  static void close() {
+  public static void close() {
     REDIS.stop();
     RABBIT.stop();
   }
 
   @AfterEach
-  void tearDown() {
+  public void tearDown() {
     factory.getConnection().flushDb();
   }
 
   @Test
   @DisplayName("Save and retrieve a message from Redis")
-  void saveAndRetrieveMessage() {
+  public void testSaveAndRetrieveMessage() {
     // given
 
     // when
@@ -126,7 +126,7 @@ class IdempotencyMessagingItTest {
 
   @Test
   @DisplayName("Send a new message to RabbitMQ")
-  void send_one_message_to_rabbit() {
+  public void testSendOneMessageToRabbit() {
     // given
     String message = "hello world message!";
 
@@ -140,7 +140,7 @@ class IdempotencyMessagingItTest {
 
   @Test
   @DisplayName("Send two messages to RabbitMQ")
-  void send_two_messages_to_rabbit() {
+  public void testSendTwoMessagesToRabbit() {
     // given
     String message1 = "hello world message!";
     String message2 = "hello world message!";
@@ -156,7 +156,7 @@ class IdempotencyMessagingItTest {
 
   @Test
   @DisplayName("Send message and creates and exception")
-  void sendMessage_when_exception() {
+  public void testSendMessageWhenException() {
     // given
     String message = "exception";
 

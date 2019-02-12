@@ -41,7 +41,7 @@ public class ContextServiceTest {
   }
 
   @Test
-  public void testGet_whenContextIsNotInitialized() {
+  public void testGetWhenContextIsNotInitialized() {
     // given no initialization
 
     // when
@@ -77,7 +77,7 @@ public class ContextServiceTest {
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testSet_whenNotEmpty() {
+  public void testSetWhenNotEmpty() {
     // given no initialization
     MessageContext expectedContext = IdempotencyTestUtils.createIdempotentContext();
     contextService.set(expectedContext);

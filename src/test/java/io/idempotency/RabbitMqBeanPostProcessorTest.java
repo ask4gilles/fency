@@ -21,7 +21,7 @@ class RabbitMqBeanPostProcessorTest {
   private MessageInterceptor messageInterceptor;
 
   @BeforeEach
-  void setup() {
+  void setUp() {
     MockitoAnnotations.initMocks(this);
   }
 
@@ -53,7 +53,7 @@ class RabbitMqBeanPostProcessorTest {
     assertThat(adviceChain).isNotNull();
     assertThat(adviceChain).isNotEmpty();
     assertThat(adviceChain).hasSize(1);
-    assertThat(adviceChain[0]).isInstanceOf(MessageInterceptor.class);
+    assertThat(adviceChain[0]).isEqualTo(messageInterceptor);
   }
 
   @Test
@@ -71,6 +71,6 @@ class RabbitMqBeanPostProcessorTest {
     assertThat(adviceChain).isNotNull();
     assertThat(adviceChain).isNotEmpty();
     assertThat(adviceChain).hasSize(1);
-    assertThat(adviceChain[0]).isInstanceOf(MessageInterceptor.class);
+    assertThat(adviceChain[0]).isEqualTo(messageInterceptor);
   }
 }
