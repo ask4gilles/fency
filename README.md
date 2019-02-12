@@ -26,15 +26,15 @@ the message recipient has to keep a list of already received message identifiers
 In order to store the processed message metadata, we have to be in a transactional context.
 If something goes wrong, the transaction has to be roll backed.
 
-1.  The **IdempotentMessageInterceptor** creates an **IdempotentContext** and stores it in a ThreadLocal
+1.  The **MessageInterceptor** creates an **MessageContext** and stores it in a ThreadLocal
 
-2.  The **IdempotentMessageAspect** is an aspect around the **@IdempotentConsumer** annotation. 
-It retrieves the IdempotentContext and checks if the message already exists. 
+2.  The **IdempotencyBarrier** is an aspect around the **@IdempotentConsumer** annotation. 
+It retrieves the MessageContext and checks if the message already exists. 
 The unique message key is composed by the messageId and the consumerQueueName.
 
 If the message does not exist, the target method is invoked and the message is stored in Redis.
 
-If the message already exists, an error message is logged and the target method is not invoked
+If the message already exists, an error message is logged and the target method is not invoked.
 
 [ci-img]: https://api.travis-ci.com/ask4gilles/idempotency-barrier.svg?branch=master
 [ci]: https://travis-ci.com/ask4gilles/idempotency-barrier
