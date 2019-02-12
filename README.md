@@ -1,5 +1,6 @@
 [![Build Status][ci-img]][ci]
 [![codecov](https://codecov.io/gh/ask4gilles/idempotency-barrier/branch/master/graph/badge.svg)](https://codecov.io/gh/ask4gilles/idempotency-barrier)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7ee34d1388f549e1ad3298a967f388f0)](https://www.codacy.com/app/ask4gilles/idempotency-barrier?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ask4gilles/idempotency-barrier&amp;utm_campaign=Badge_Grade)
 
 # Idempotency barrier
 ## Theoretical concept
