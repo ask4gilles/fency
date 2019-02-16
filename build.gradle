@@ -4,7 +4,7 @@ group 'io.idempotency'
 
 buildscript {
   ext {
-    springBootVersion = '2.1.2.RELEASE'
+    springBootVersion = '2.1.3.RELEASE'
     spotbugsVersion = '1.6.9'
   }
 
