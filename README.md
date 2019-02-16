@@ -32,7 +32,7 @@ If something goes wrong, the transaction has to be roll backed.
 It retrieves the MessageContext and checks if the message already exists. 
 The unique message key is composed by the messageId and the consumerQueueName.
 
-If the message does not exist, the target method is invoked and the message is stored in Redis.
+If the message does not exist, the target method is invoked and the message metadata is stored in a datastore.
 
 If the message already exists, an error message is logged and the target method is not invoked.
 
