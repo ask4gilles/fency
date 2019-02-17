@@ -1,0 +1,7 @@
+# Autoconfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+io.idempotency.IdempotencyAutoConfiguration
+
+# FailureAnalyzer
+org.springframework.boot.diagnostics.FailureAnalyzer=\
+io.idempotency.IdempotencyFailureAnalyzer

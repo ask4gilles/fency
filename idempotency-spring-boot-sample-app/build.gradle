@@ -1,0 +1,6 @@
+group 'io.idempotency'
+
+dependencies {
+  implementation 'io.idempotency:idempotency-spring-boot-starter-redis:+'
+  implementation 'org.springframework.boot:spring-boot-starter-amqp'
+}
