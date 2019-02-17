@@ -15,27 +15,28 @@
  */
 package io.idempotency;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.Matchers.sameInstance;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ContextServiceTest {
 
   @InjectMocks
   private ContextService contextService;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     MockitoAnnotations.initMocks(this);
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     contextService.clear();
   }
@@ -76,14 +77,14 @@ public class ContextServiceTest {
     assertThat(context, nullValue());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testSetWhenNotEmpty() {
     // given no initialization
     MessageContext expectedContext = IdempotencyTestUtils.createIdempotentContext();
     contextService.set(expectedContext);
 
     // when
-    contextService.set(expectedContext);
+    assertThrows(IllegalArgumentException.class, () -> contextService.set(expectedContext));
 
     // then exception
   }

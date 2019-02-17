@@ -18,8 +18,8 @@ package io.idempotency;
 import java.util.Optional;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -39,7 +39,7 @@ public class IdempotencyBarrierTest {
   @InjectMocks
   private IdempotencyBarrier aspect;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     MockitoAnnotations.initMocks(this);
   }
