@@ -1,0 +1,7 @@
+group 'io.idempotency'
+
+dependencies {
+  compile libraries.springBootStarter
+  compile project(':idempotency-spring-boot-autoconfigure')
+  compile project(':idempotency-barrier-redis')
+}

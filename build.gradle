@@ -1,5 +1,5 @@
 import org.springframework.boot.gradle.plugin.SpringBootPlugin
-
+apply from: "./libraries.gradle"
 group 'io.idempotency'
 
 buildscript {
@@ -9,6 +9,7 @@ buildscript {
   }
 
   repositories {
+    mavenLocal()
     mavenCentral()
     maven {
       url "https://plugins.gradle.org/m2/"
@@ -21,108 +22,98 @@ buildscript {
   }
 }
 
-repositories {
-  mavenCentral()
-}
-
-apply from: "./libraries.gradle"
-
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'jacoco'
-apply plugin: 'com.github.spotbugs'
-
-dependencyManagement {
-  imports {
-    mavenBom SpringBootPlugin.BOM_COORDINATES
-  }
-}
-
-dependencies {
-  implementation libraries.aspectjweaver
-  implementation libraries.springRabbit
-  implementation libraries.springBootStarterJdbc
-  implementation libraries.springBootStarterJson
-  implementation libraries.springDataRedis
-  implementation libraries.lombok
-  implementation libraries.jacksonDataBind
-
-  annotationProcessor libraries.lombok
-
-  testImplementation libraries.springBootTest
-  testImplementation libraries.junitJupiterApi
-  testImplementation libraries.junitJupiterParams
-  testImplementation libraries.junitJupiterEngine
-  testImplementation libraries.mockitoCore
-  testImplementation libraries.mockitoJunitJupiter
-  testImplementation libraries.postgresJdbc
-  testImplementation libraries.hikariCP
-  testImplementation libraries.testContainers
-  testImplementation libraries.testContainersPostgres
-  testImplementation libraries.awaitility
-}
-
-spotbugs { 
-  sourceSets = [sourceSets.main] 
-  ignoreFailures = false 
-  reportsDir = file("${buildDir}/reports/findbugsReports") 
-  effort = "max" 
-  reportLevel = "high"
-}
-tasks.withType(com.github.spotbugs.SpotBugsTask) { 
-  reports { 
-    html { enabled = true 
-    }
-    xml { 
-      enabled = false 
-    } 
-  } 
-}
-
-jacoco {
-}
-
-jacocoTestReport {
-  executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
-  reports {
-    xml.enabled = true
-    csv.enabled = false
-    html.destination file("${buildDir}/reports/jacoco/coverage.html")
-    xml.destination file("${buildDir}/reports/jacoco/coverage.xml")
+allprojects {
+  
+  version = '0.0.1-SNAPSHOT'
+  
+  repositories {
+    mavenLocal()
+    mavenCentral()
   }
   
-  afterEvaluate {
-    classDirectories.from = files(classDirectories.files.collect {
-      fileTree(dir: it, excludes: ['**/*Config*'])
-    })
+  apply plugin: 'java'
+  apply plugin: 'idea'
+  apply plugin: 'io.spring.dependency-management'
+  apply plugin: 'jacoco'
+  apply plugin: 'com.github.spotbugs'
+  apply plugin: 'maven-publish'
+
+  dependencyManagement {
+    imports {
+      mavenBom SpringBootPlugin.BOM_COORDINATES
+    }
   }
 
-  dependsOn test
-}
+  spotbugs {
+    sourceSets = [sourceSets.main]
+    ignoreFailures = false
+    reportsDir = file("${buildDir}/reports/findbugsReports")
+    effort = "max"
+    reportLevel = "high"
+  }
+  tasks.withType(com.github.spotbugs.SpotBugsTask) {
+    reports {
+      html {
+        enabled = true
+      }
+      xml {
+        enabled = false
+      }
+    }
+  }
 
-check.dependsOn jacocoTestReport
+  jacoco {
+  }
 
-test {
-  useJUnitPlatform()
-}
+  jacocoTestReport {
+    executionData fileTree(project.rootDir.absolutePath).include("${buildDir}/jacoco/*.exec")
+    reports {
+      xml.enabled = true
+      csv.enabled = false
+      html.destination file("${buildDir}/reports/jacoco/coverage.html")
+      xml.destination file("${buildDir}/reports/jacoco/coverage.xml")
+    }
 
-task integrationTest(type: Test, dependsOn: test) {
-    beforeSuite { descriptor ->
+    afterEvaluate {
+      classDirectories.from = files(classDirectories.files.collect {
+        fileTree(dir: it, excludes: ['**/*Configuration*'])
+      })
+    }
+
+    dependsOn test
+  }
+
+  check.dependsOn jacocoTestReport
+
+  test {
+    useJUnitPlatform()
+  }
+
+  task integrationTest(type: Test, dependsOn: test) {
+    beforeSuite {descriptor ->
       if (descriptor.className != null) {
         logger.lifecycle("Running: " + descriptor.className)
       }
     }
 
-  include '**/it/**/*'
+    include '**/**/*ItTest'
 
-  reports {
-    html.destination = file("$buildDir/reports/integrationTests")
+    reports {
+      html.destination = file("$buildDir/reports/integrationTests")
+    }
   }
+  check.dependsOn integrationTest
+
+  publishing {
+    publications {
+      mavenJava(MavenPublication) {
+        from components.java
+      }
+    }
+    repositories {
+      mavenLocal()
+    }
+  }
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
 }
-check.dependsOn integrationTest
-
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
