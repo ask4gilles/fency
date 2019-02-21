@@ -18,7 +18,7 @@ package io.idempotency;
 import java.lang.reflect.Field;
 
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
-import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.util.ReflectionUtils;
@@ -40,8 +40,8 @@ class RabbitMqBeanPostProcessor implements BeanPostProcessor {
     if (bean instanceof SimpleRabbitListenerContainerFactory) {
       SimpleRabbitListenerContainerFactory factory = (SimpleRabbitListenerContainerFactory) bean;
       registerIdempotentInterceptor(factory);
-    } else if (bean instanceof SimpleMessageListenerContainer) {
-      SimpleMessageListenerContainer container = (SimpleMessageListenerContainer) bean;
+    } else if (bean instanceof AbstractMessageListenerContainer) {
+      AbstractMessageListenerContainer container = (AbstractMessageListenerContainer) bean;
       registerIdempotentInterceptor(container);
     }
     return bean;
@@ -59,9 +59,9 @@ class RabbitMqBeanPostProcessor implements BeanPostProcessor {
     factory.setAdviceChain(adviceChainWithTracing);
   }
 
-  private void registerIdempotentInterceptor(SimpleMessageListenerContainer container) {
+  private void registerIdempotentInterceptor(AbstractMessageListenerContainer container) {
     Field adviceChainField =
-        ReflectionUtils.findField(SimpleMessageListenerContainer.class, "adviceChain");
+        ReflectionUtils.findField(AbstractMessageListenerContainer.class, "adviceChain");
     ReflectionUtils.makeAccessible(adviceChainField);
     Advice[] chain = (Advice[]) ReflectionUtils.getField(adviceChainField, container);
     Advice[] newAdviceChain = getAdviceChainOrAddInterceptorToChain(chain);
