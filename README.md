@@ -2,7 +2,7 @@
 [![codecov](https://codecov.io/gh/ask4gilles/idempotency-barrier/branch/master/graph/badge.svg)](https://codecov.io/gh/ask4gilles/idempotency-barrier)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7ee34d1388f549e1ad3298a967f388f0)](https://www.codacy.com/app/ask4gilles/idempotency-barrier?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ask4gilles/idempotency-barrier&amp;utm_campaign=Badge_Grade)
 
-# Idempotency barrier
+# Fency: an idempotency barrier for RabbitMQ consumers
 ## Theoretical concept
 Even when a sender application sends a message only once,
 the receiver application may receive the message more than once.
@@ -35,6 +35,16 @@ The unique message key is composed by the messageId and the consumerQueueName.
 If the message does not exist, the target method is invoked and the message metadata is stored in a datastore.
 
 If the message already exists, an error message is logged and the target method is not invoked.
+
+## Usage
+
+Include dependency:
+
+```text
+'io.fency:fency-spring-boot-starter-redis:+'
+```
+
+See sample: fency-spring-boot-sample-app
 
 [ci-img]: https://api.travis-ci.com/ask4gilles/idempotency-barrier.svg?branch=master
 [ci]: https://travis-ci.com/ask4gilles/idempotency-barrier

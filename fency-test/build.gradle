@@ -1,0 +1,4 @@
+dependencies{
+  implementation project(':fency-core')
+  implementation libraries.springBootStarterAmqp
+}

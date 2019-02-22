@@ -1,4 +1,0 @@
-dependencies{
-  implementation project(':idempotency-barrier-core')
-  implementation libraries.springBootStarterAmqp
-}

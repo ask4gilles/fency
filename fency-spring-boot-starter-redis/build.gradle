@@ -1,0 +1,7 @@
+group 'io.idempotency'
+
+dependencies {
+  compile libraries.springBootStarter
+  compile project(':fency-spring-boot-autoconfigure')
+  compile project(':fency-redis')
+}

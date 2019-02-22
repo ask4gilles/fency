@@ -1,6 +1,6 @@
 import org.springframework.boot.gradle.plugin.SpringBootPlugin
 apply from: "./libraries.gradle"
-group 'io.idempotency'
+group 'io.fency'
 
 buildscript {
   ext {
